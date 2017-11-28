@@ -9,6 +9,12 @@ from tkinter import ttk
 from components.Labels import Labels
 from components.Buttons import Buttons
 
+
+DIR_SELF 		= os.path.dirname(os.path.abspath(__file__))
+print("self dir: ", DIR_SELF)
+
+
+
 class MainWindow(tkinter.Tk):
 	def __init__(self):
 		super(MainWindow, self).__init__()
