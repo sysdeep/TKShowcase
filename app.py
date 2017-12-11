@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import os
@@ -8,6 +8,7 @@ from tkinter import ttk
 
 from components.Labels import Labels
 from components.Buttons import Buttons
+from components.LabelFrames import LabelFrames
 
 
 DIR_SELF 		= os.path.dirname(os.path.abspath(__file__))
@@ -19,7 +20,7 @@ class MainWindow(tkinter.Tk):
 	def __init__(self):
 		super(MainWindow, self).__init__()
 
-		self.name = "DCat"
+		self.name = "TKShowcase"
 		self.title(self.name)
 		self.minsize(800, 400)
 
@@ -33,12 +34,25 @@ class MainWindow(tkinter.Tk):
 		self.tabs = ttk.Notebook(self.main_layout)
 		self.tabs.pack(fill="both", expand=True)
 
-		
+
+
+
+
+		#--- pages		
 		labels_frame = Labels(self.tabs)
 		self.tabs.add(labels_frame, text="Labels")
 
+		label_frames = LabelFrames(self.tabs)
+		self.tabs.add(label_frames, text="LabelFrames")
+
 		buttons_frame = Buttons(self.tabs)
 		self.tabs.add(buttons_frame, text="Buttons")
+
+
+
+
+
+
 
 		self.controls = ttk.Frame(self)
 		self.controls.pack(fill="x", side="bottom")

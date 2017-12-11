@@ -8,15 +8,15 @@ from rc import get_img
 
 
 
-class Labels(ttk.Frame):
+class LabelFrames(ttk.Frame):
 	def __init__(self, master, *args, **kwargs):
-		super(Labels, self).__init__(master, *args, **kwargs)
+		super(LabelFrames, self).__init__(master, *args, **kwargs)
 
 		# self.configure(ipadx=20)
 		self.img = tkinter.PhotoImage(file=get_img("smile.png"))
 
 		row = 0
-		ttk.Label(self, text="regular label").grid(row=row, column=0)
+		ttk.LabelFrame(self, text="regular label").grid(row=row, column=0)
 
 		row += 1
 		ttk.Label(self, text="background=green", background="green").grid(row=row, column=0)
