@@ -39,6 +39,27 @@ class DemoApp(tkinter.Toplevel):
 		ttk.Button(self.controls, text="Close", command=self.quit).pack(side="right")
 
 
+		style = ttk.Style()
+		styles = style.theme_names()
+		current_style = style.theme_use()
+		self.style_box = ttk.Combobox(self.controls, values=styles, state='readonly')
+		self.style_box.pack(side="left")
+		self.style_box.bind('<<ComboboxSelected>>', self.__update_style)
+		self.style_box.set(current_style)
+
+
+
+
+
+
+
+	def __update_style(self, e):
+		new_style = self.style_box.get()
+
+
+		style = ttk.Style()
+		style.theme_use(new_style)
+
 
 if __name__ == "__main__":
 
