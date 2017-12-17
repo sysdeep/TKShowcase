@@ -10,6 +10,7 @@ from components.Labels import Labels
 from components.Buttons import Buttons
 from components.LabelFrames import LabelFrames
 
+from demoapp.DemoApp import DemoApp
 
 DIR_SELF 		= os.path.dirname(os.path.abspath(__file__))
 print("self dir: ", DIR_SELF)
@@ -56,8 +57,10 @@ class MainWindow(tkinter.Tk):
 
 		self.controls = ttk.Frame(self)
 		self.controls.pack(fill="x", side="bottom")
-		ttk.Button(self.controls, text="Close", command=self.quit).pack(side="right")
 
+
+		ttk.Button(self.controls, text="Close", command=self.quit).pack(side="right")
+		ttk.Button(self.controls, text="Demo", command=self.show_demo).pack(side="right")
 
 
 		style = ttk.Style()
@@ -94,6 +97,10 @@ class MainWindow(tkinter.Tk):
 
 		style = ttk.Style()
 		style.theme_use(new_style)
+
+
+	def show_demo(self):
+		DemoApp(self)
 
 
 if __name__ == "__main__":
