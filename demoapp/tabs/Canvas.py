@@ -8,5 +8,9 @@ class Canvas(ttk.Frame):
         super(Canvas, self).__init__(master, *args, **kwargs)
 
 
-        
+
+    
+
+
+
 

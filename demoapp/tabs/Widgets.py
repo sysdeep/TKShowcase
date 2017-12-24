@@ -9,16 +9,19 @@ class Widgets(ttk.Frame):
 
 
         
-
+        #--- entry ------------------------------------------------------------
         self.frame_entry = ttk.LabelFrame(self, text="Entry")
         self.frame_entry.pack(side="top", fill="x")
 
 
-        ttk.Entry(self.frame_entry).grid(column=0, row=0)
-        tkinter.Spinbox(self.frame_entry).grid(column=1, row=0)
-        ttk.Combobox(self.frame_entry).grid(column=2, row=0)
+        entry = ttk.Entry(self.frame_entry)
+        entry.grid(column=0, row=0)
+        entry.insert(tkinter.END, "entry")
 
-        tkinter.Text(self.frame_entry).grid(column=0, row=1, columnspan=3)
+        tkinter.Spinbox(self.frame_entry, values=[x for x in range(10)]).grid(column=1, row=0)
+        ttk.Combobox(self.frame_entry, values=[x*100 for x in range(10)]).grid(column=2, row=0)
+
+        tkinter.Text(self.frame_entry, height=10).grid(column=0, row=1, columnspan=3)
 
 
 
