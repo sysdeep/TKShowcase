@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/tkd_example
+tkd_example.so
+tkd_example.dylib
+tkd_example.dll
+tkd_example.a
+tkd_example.lib
+tkd_example-test-*
+*.exe
+*.o
+*.obj
+*.lst

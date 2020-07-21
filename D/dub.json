@@ -1,0 +1,28 @@
+{
+	"authors": [
+		"Nia"
+	],
+	"copyright": "Copyright © 2020, Nia",
+	"dependencies": {
+		"tkd": "~>1.1.13"
+	},
+	"description": "A minimal D application.",
+	"license": "proprietary",
+	"name": "tkd_example",
+	
+	
+	"configurations": [
+		
+		{
+			"name": "example",
+			"targetType": "executable",
+			"mainSourceFile": "tkd_example/example.d",
+			"lflags-windows": ["/subsystem:windows"],
+			"stringImportPaths": ["tkd_example/media"],
+			"targetName": "tkd_example",
+			"targetPath": "build",
+            "____excludedSourceFiles": ["source/mytk/*"],
+		}
+        
+	],
+}

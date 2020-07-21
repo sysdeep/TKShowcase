@@ -1,6 +1,9 @@
 
 # vendor/*
 
+
+D/build/*
+
 .idea
 .vscode
 ttt
