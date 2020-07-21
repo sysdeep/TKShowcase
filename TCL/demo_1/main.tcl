@@ -1,5 +1,5 @@
 #!/usr/bin/wish
-
+# https://www.tcl.tk/man/tcl8.6/TkCmd/contents.htm
 
 wm title . "Tcl/Tk Demo 1"
 wm minsize . 550 560
@@ -86,23 +86,27 @@ tk_messageBox -message "Tkd Showcase" \
 
 
 
-#--- widget pane --------------------------------------------------------------
-frame .widgetPane 
-frame .panedPane 
-frame .canvasPane
-frame .dialogsPane
-#--- widget pane --------------------------------------------------------------
+
 
 
 #--- notebook -----------------------------------------------------------------
 ttk::notebook .n
-.n add .widgetPane -text "Widgets" \
+
+#--- widgets
+source "widget_pane.tcl"
+
+frame .n.panedPane 
+frame .n.canvasPane
+frame .n.dialogsPane
+#--- widget pane --------------------------------------------------------------
+#
+.n add .n.widgetPane -text "Widgets" \
 	-image [image create photo -file "./media/layout_content.png"] -compound left
-.n add .panedPane -text "Panes" \
+.n add .n.panedPane -text "Panes" \
 	-image [image create photo -file "./media/application_tile_horizontal.png"] -compound left
-.n add .canvasPane -text "Canvas" \
+.n add .n.canvasPane -text "Canvas" \
 	-image [image create photo -file "./media/shape_ungroup.png"] -compound left
-.n add .dialogsPane -text "Dialogs" \
+.n add .n.dialogsPane -text "Dialogs" \
 	-image [image create photo -file "./media/application_double.png"] -compound left
 pack .n -fill both -side top -padx 10 -pady 10 -anchor center -expand true
 #--- notebook -----------------------------------------------------------------
