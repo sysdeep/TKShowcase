@@ -5,7 +5,7 @@ import os
 import tkinter
 from tkinter import ttk
 
-
+from rc import get_img
 
 
 class Buttons(ttk.Frame):
@@ -13,7 +13,7 @@ class Buttons(ttk.Frame):
 		super(Buttons, self).__init__(master, *args, **kwargs)
 
 		# self.configure(ipadx=20)
-		self.img = tkinter.PhotoImage(file="img/smile_16.png")
+		self.img = tkinter.PhotoImage(file=get_img("smile_16.png"))
 
 		row = 0
 		ttk.Button(self, text="Button", underline=2).grid(row=row, column=0)

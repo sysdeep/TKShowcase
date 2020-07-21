@@ -8,12 +8,20 @@ from tkinter import ttk
 
 from components.Labels import Labels
 from components.Buttons import Buttons
+from components.LabelFrames import LabelFrames
+
+from demoapp.DemoApp import DemoApp
+
+DIR_SELF 		= os.path.dirname(os.path.abspath(__file__))
+print("self dir: ", DIR_SELF)
+
+
 
 class MainWindow(tkinter.Tk):
 	def __init__(self):
 		super(MainWindow, self).__init__()
 
-		self.name = "DCat"
+		self.name = "TKShowcase"
 		self.title(self.name)
 		self.minsize(800, 400)
 
@@ -27,17 +35,32 @@ class MainWindow(tkinter.Tk):
 		self.tabs = ttk.Notebook(self.main_layout)
 		self.tabs.pack(fill="both", expand=True)
 
-		
+
+
+
+
+		#--- pages		
 		labels_frame = Labels(self.tabs)
 		self.tabs.add(labels_frame, text="Labels")
+
+		label_frames = LabelFrames(self.tabs)
+		self.tabs.add(label_frames, text="LabelFrames")
 
 		buttons_frame = Buttons(self.tabs)
 		self.tabs.add(buttons_frame, text="Buttons")
 
+
+
+
+
+
+
 		self.controls = ttk.Frame(self)
 		self.controls.pack(fill="x", side="bottom")
-		ttk.Button(self.controls, text="Close", command=self.quit).pack(side="right")
 
+
+		ttk.Button(self.controls, text="Close", command=self.quit).pack(side="right")
+		ttk.Button(self.controls, text="Demo", command=self.show_demo).pack(side="right")
 
 
 		style = ttk.Style()
@@ -74,6 +97,10 @@ class MainWindow(tkinter.Tk):
 
 		style = ttk.Style()
 		style.theme_use(new_style)
+
+
+	def show_demo(self):
+		DemoApp(self)
 
 
 if __name__ == "__main__":
