@@ -4,8 +4,15 @@
 puts "Hello!!!"
 
 
+
+
 #--- themes list
-puts [ttk::style theme names]
+#--- put themes dir here
+# source themes/pkgIndex.tcl
+# package require ttkthemes
+# ttk::setTheme plastik
+
+
 
 wm title . "Tcl/Tk Demo 1"
 wm minsize . 550 560
