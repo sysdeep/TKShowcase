@@ -1,6 +1,12 @@
 #!/usr/bin/wish
 # https://www.tcl.tk/man/tcl8.6/TkCmd/contents.htm
 
+puts "Hello!!!"
+
+
+#--- themes list
+puts [ttk::style theme names]
+
 wm title . "Tcl/Tk Demo 1"
 wm minsize . 550 560
 # TODO
@@ -113,8 +119,13 @@ pack .n -fill both -side top -padx 10 -pady 10 -anchor center -expand true
 
 
 #--- exit button --------------------------------------------------------------
+#--- themes
+pack [ttk::combobox .select_theme -values [ttk::style theme names]] -side left -fill x -anchor nw -padx 5 -pady 5
+bind .select_theme <<ComboboxSelected>> { ttk::style theme use [.select_theme get] }
+
+
 button .exit_button -text Exit -command {exit} -width 10
-pack .exit_button -padx 5 -pady 5
+pack .exit_button -padx 5 -pady 5 
 #--- exit button --------------------------------------------------------------
 
 #--- size grip ----------------------------------------------------------------
