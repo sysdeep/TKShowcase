@@ -33,51 +33,11 @@ image create photo img_help -file "./media/help.png"
 
 
 #--- main menu ----------------------------------------------------------------
-# https://www.tcl.tk/man/tcl8.6/TkCmd/menu.htm
-# http://zetcode.com/gui/tcltktutorial/menustoolbars/
-#--- Menu
-menu .main_menu
-
-#--- file
-menu .main_menu.file -tearoff 0
-.main_menu add cascade -menu .main_menu.file -label File -underline 0
-
-
-#--- check button submenu
-menu .main_menu.file.check_boxes -tearoff 0
-.main_menu.file add cascade -menu .main_menu.file.check_boxes -label "Checkbutton submenu"
-
-.main_menu.file.check_boxes add checkbutton -label "Check option 1"
-.main_menu.file.check_boxes add checkbutton -label "Check option 2"
-.main_menu.file.check_boxes add checkbutton -label "Check option 3"
-
-
-#--- radio button submenu
-menu .main_menu.file.radio -tearoff 0
-.main_menu.file add cascade -menu .main_menu.file.radio -label "Radiobutton submenu"
-
-.main_menu.file.radio add radiobutton -label "Radio option 1"
-.main_menu.file.radio add radiobutton -label "Radio option 2"
-.main_menu.file.radio add radiobutton -label "Radio option 3"
-
-
-
-
-.main_menu.file add separator
-
-.main_menu.file add command -label Exit -image img_close -compound left -accelerator "Ctrl-q" -command { exit }
-
-
-menu .main_menu.help -tearoff 0
-.main_menu add cascade -menu .main_menu.help -label Help -underline 0
-.main_menu.help add command -label About -image img_help -compound left -accelerator "F1" -command { show_about }
-
-
-
-
-#--- other
-# .main_menu add command -label QQQ -command {set myvariable "QQQ"}
+source "main_menu.tcl"
 #--- main menu ----------------------------------------------------------------
+
+
+
 
 #--- bindings -----------------------------------------------------------------
 bind . <Control-q> { exit }
@@ -123,6 +83,9 @@ frame .n.dialogsPane
 	-image [image create photo -file "./media/application_double.png"] -compound left
 pack .n -fill both -side top -padx 10 -pady 10 -anchor center -expand true
 #--- notebook -----------------------------------------------------------------
+
+
+
 
 
 #--- exit button --------------------------------------------------------------
