@@ -33,7 +33,7 @@ image create photo img_help -file "./media/help.png"
 
 
 #--- main menu ----------------------------------------------------------------
-source "main_menu.tcl"
+source "frame_menu.tcl"
 #--- main menu ----------------------------------------------------------------
 
 
@@ -65,14 +65,14 @@ tk_messageBox -message "Tkd Showcase" \
 #--- notebook -----------------------------------------------------------------
 ttk::notebook .n
 
-#--- widgets
-source "widget_pane.tcl"
 
-frame .n.panedPane 
-frame .n.canvasPane
-frame .n.dialogsPane
-#--- widget pane --------------------------------------------------------------
-#
+source "frame_widgets.tcl"
+source "frame_panes.tcl"
+source "frame_canvas.tcl"
+source "frame_dialogs.tcl"
+
+
+
 .n add .n.widgetPane -text "Widgets" \
 	-image [image create photo -file "./media/layout_content.png"] -compound left
 .n add .n.panedPane -text "Panes" \
