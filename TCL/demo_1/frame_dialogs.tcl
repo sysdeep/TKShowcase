@@ -1,4 +1,5 @@
 # https://www.tcl.tk/man/tcl8.6/TkCmd/contents.htm
+# https://www.tcl.tk/man/tcl8.6/TkCmd/getOpenFile.htm
 frame .n.dialogsPane
 
 labelframe .n.dialogsPane.modals_frame -text "Modal"
@@ -8,32 +9,32 @@ grid columnconfigure .n.dialogsPane.modals_frame 0 -weight 0
 grid columnconfigure .n.dialogsPane.modals_frame 1 -weight 1
 
 #--- color
-grid [button .n.dialogsPane.modals_frame.b_color -text "Color" -image [image create photo -file "./media/color_swatch.png"] -compound left] \
-	-column 0 -row 0 -padx 10 -pady 10
+grid [button .n.dialogsPane.modals_frame.b_color -text "Color" -image [image create photo -file "./media/color_swatch.png"] -compound left -command openColorDialog] \
+	-column 0 -row 0 -padx 10 -pady 10 -sticky "ew"
 grid [entry .n.dialogsPane.modals_frame.e_color] \
 	-column 1 -row 0 -sticky "ew" -padx 10
 
 #--- directory
-grid [button .n.dialogsPane.modals_frame.b_directory -text "Directory" -image [image create photo -file "./media/chart_organisation.png"] -compound left] \
-	-column 0 -row 1 -padx 10 -pady 10
+grid [button .n.dialogsPane.modals_frame.b_directory -text "Directory" -image [image create photo -file "./media/chart_organisation.png"] -compound left -command openDirectoryDialog] \
+	-column 0 -row 1 -padx 10 -pady 10 -sticky "ew"
 grid [entry .n.dialogsPane.modals_frame.e_directory] \
 	-column 1 -row 1 -sticky "ew" -padx 10 
 
 #--- open_file
-grid [button .n.dialogsPane.modals_frame.b_open_file -text "Open File" -image [image create photo -file "./media/folder_page.png"] -compound left] \
-	-column 0 -row 2 -padx 10 -pady 10
+grid [button .n.dialogsPane.modals_frame.b_open_file -text "Open File" -image [image create photo -file "./media/folder_page.png"] -compound left -command openOpenFileDialog] \
+	-column 0 -row 2 -padx 10 -pady 10 -sticky "ew"
 grid [entry .n.dialogsPane.modals_frame.e_open_file] \
 	-column 1 -row 2 -sticky "ew" -padx 10 
 
 #--- save_file
-grid [button .n.dialogsPane.modals_frame.b_save_file -text "Save File" -image [image create photo -file "./media/disk.png"] -compound left] \
-	-column 0 -row 3 -padx 10 -pady 10
+grid [button .n.dialogsPane.modals_frame.b_save_file -text "Save File" -image [image create photo -file "./media/disk.png"] -compound left -command openSaveFileDialog] \
+	-column 0 -row 3 -padx 10 -pady 10 -sticky "ew"
 grid [entry .n.dialogsPane.modals_frame.e_save_file] \
 	-column 1 -row 3 -sticky "ew" -padx 10 
 
 #--- message
 grid [button .n.dialogsPane.modals_frame.b_message -text "Message" -image [image create photo -file "./media/comment.png"] -compound left] \
-	-column 0 -row 4 -padx 10 -pady 10
+	-column 0 -row 4 -padx 10 -pady 10 -sticky "ew"
 grid [entry .n.dialogsPane.modals_frame.e_message] \
 	-column 1 -row 4 -sticky "ew" -padx 10 
 
@@ -53,6 +54,43 @@ grid [button .n.dialogsPane.non_modals_frame.b_font -text "Fonta" -image [image 
 	-column 0 -row 0 -padx 10 -pady 10
 grid [entry .n.dialogsPane.non_modals_frame.e_font] \
 	-column 1 -row 0 -sticky "ew" -padx 10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+proc openColorDialog {} {
+	set color [tk_chooseColor -initialcolor beige -title "Choose a color"]
+	.n.dialogsPane.modals_frame.e_color delete 0 end
+	.n.dialogsPane.modals_frame.e_color insert 0 $color
+}
+
+proc openDirectoryDialog {}	{
+	set dir [tk_chooseDirectory -initialdir ~ -title "Choose a directory"]
+	.n.dialogsPane.modals_frame.e_directory delete 0 end
+	.n.dialogsPane.modals_frame.e_directory insert 0 $dir
+}
+
+proc openOpenFileDialog {} {
+	set file [tk_getOpenFile -initialdir ~ -multiple true -title "Choose a file to opening"]
+	.n.dialogsPane.modals_frame.e_open_file delete 0 end
+	.n.dialogsPane.modals_frame.e_open_file insert 0 $file
+}
+
+proc openSaveFileDialog {} {
+	set file [tk_getSaveFile -initialdir ~ -title "Choose a file to saving"]
+	.n.dialogsPane.modals_frame.e_save_file delete 0 end
+	.n.dialogsPane.modals_frame.e_save_file insert 0 $file
+}
 
 
 
@@ -115,3 +153,20 @@ grid [entry .n.dialogsPane.non_modals_frame.e_font] \
 
 # 		return dialogPane; 
 
+
+
+
+
+
+
+
+
+
+
+# private void openColorDialog(CommandArgs args)
+# 	{
+# 		auto dialog = new ColorDialog("Choose a color")
+# 			.setInitialColor(Color.beige)
+# 			.show();
+# 		this._colorEntry.setValue(dialog.getResult());
+# 	}

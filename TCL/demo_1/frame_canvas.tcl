@@ -16,15 +16,18 @@ canvas .n.canvasPane.container.canvas -bg "bisque" -cursor "hand1" -scrollregion
 
 .n.canvasPane.container.canvas create rectangle 10 10 200 100 -tags "tagged"
 .n.canvasPane.container.canvas create arc 10 110 110 210 -fill paleGreen -style pie
-.n.canvasPane.container.canvas create image 210 10 -image [image create photo -file "./media/thumbnail.png"]
-.n.canvasPane.container.canvas create image 260 10 -image [image create photo -file "./media/thumbnail.gif"]
+.n.canvasPane.container.canvas create image 240 40 -image [image create photo -file "./media/thumbnail.png"]
+.n.canvasPane.container.canvas create image 290 40 -image [image create photo -file "./media/thumbnail.gif"]
 .n.canvasPane.container.canvas create line 120 110 200 110 200 160 -arrow last
 .n.canvasPane.container.canvas create oval 10 170 200 245 -fill rosyBrown3
-.n.canvasPane.container.canvas create polygon 220 80 320 80 300 120 240 120 -fill rosyBrown3
+
+# setFont("{Times New Roman} 22 bold"))
+.n.canvasPane.container.canvas create text 90 202 -fill white -text "Tk Canvas" -font "{Times New Roman} 22 bold"
+.n.canvasPane.container.canvas create polygon 220 80 320 80 300 120 240 120 -fill mediumPurple
 
 button .n.canvasPane.container.button -text "Embedded\nWidget" -image [image create photo -file "./media/error.png"] -compound top \
 	-height 100 -width 100
-.n.canvasPane.container.canvas create window 220 140 -window .n.canvasPane.container.button
+.n.canvasPane.container.canvas create window 280 200 -window .n.canvasPane.container.button
 
 .n.canvasPane.container.canvas itemconfigure "tagged" -fill "salmon"
 .n.canvasPane.container.canvas xview moveto 0.25
