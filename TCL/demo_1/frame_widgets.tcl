@@ -9,7 +9,7 @@ pack [labelframe .n.widgetPane.lf -text "Text Entry"] -side top -fill both -padx
 
 
 
-text .n.widgetPane.lf.text -width 0 -height 6
+text .n.widgetPane.lf.text -width 0 -height 9
 .n.widgetPane.lf.text insert 1.0 "import std.stdio;\n\nvoid main(string[] args)\n{\n\twriteln(\"Hello World!\");\n}"
 pack .n.widgetPane.lf.text -side bottom -fill both -anchor nw -padx 5
 # -width 0 -height 3 -text "import std.stdio;\n\nvoid main(string[] args)\n{\n\twriteln(\"Hello World!\");\n}"

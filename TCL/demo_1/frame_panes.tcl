@@ -1,49 +1,88 @@
 # https://www.tcl.tk/man/tcl8.6/TkCmd/contents.htm
+# https://www.tcl.tk/man/tcl8.6/TkCmd/panedwindow.htm
+# https://www.tcl.tk/man/tcl8.6/TkCmd/ttk_treeview.htm
+
 frame .n.panedPane 
 
-# auto panedPane = new Frame();
 
-# 			auto panedWindow = new PanedWindow(panedPane);
+#--- paned window -------------------------------------------------------------
+panedwindow .n.panedPane.panedWindow -orient vertical
+pack .n.panedPane.panedWindow -side top -fill both -anchor center -padx 10 -pady 10
 
-# 				auto rows = new TreeViewRow(["Computer"], true, ["computer"]);
-# 				rows.children ~= new TreeViewRow(["Documents"], true, ["folder"]);
-# 					rows.children[0].children ~= new TreeViewRow(["Important notes.txt"], true, ["file"]);
-# 					rows.children[0].children ~= new TreeViewRow(["The D Programming Language.pdf"], true, ["pdf"]);
-# 				rows.children ~= new TreeViewRow(["Pictures"], true, ["folder"]);
-# 					rows.children[1].children ~= new TreeViewRow(["Gary and Tessa.jpg"], true, ["image"]);
-# 				rows.children ~= new TreeViewRow(["Videos"], true, ["folder"]);
-# 					rows.children[2].children ~= new TreeViewRow(["Carlito's Way (1993).mpg"], true, ["video"]);
-# 					rows.children[2].children ~= new TreeViewRow(["Aliens (1986).mpg"], true, ["video"]);
 
-# 				auto tree1 = new TreeView(panedWindow)
-# 					.setHeading("Directory listing")
-# 					.setTag("computer", new EmbeddedPng!("computer.png"))
-# 					.setTag("folder", new EmbeddedPng!("folder.png"))
-# 					.setTag("file", new EmbeddedPng!("page.png"))
-# 					.setTag("pdf", new EmbeddedPng!("page_white_acrobat.png"))
-# 					.setTag("video", new EmbeddedPng!("film.png"))
-# 					.setTag("image", new EmbeddedPng!("images.png"))
-# 					.addRow(rows);
 
-# 				auto tree2 = new TreeView(panedWindow)
-# 					.setHeading("Film")
-# 					.setWidth(250)
-# 					.addColumn(new TreeViewColumn("Year").setWidth(20))
-# 					.addColumn(new TreeViewColumn("IMDB ranking").setWidth(50))
-# 					.addRow(new TreeViewRow(["The Shawshank Redemption", "1994", "1"]))
-# 					.addRow(new TreeViewRow(["The Godfather", "1972", "2"]))
-# 					.addRow(new TreeViewRow(["The Godfather: Part II", "1974", "3"]))
-# 					.addRow(new TreeViewRow(["The Dark Knight", "2008", "4"]))
-# 					.addRow(new TreeViewRow(["Pulp Fiction", "1994", "5"]))
-# 					.addRow(new TreeViewRow(["The Good, the Bad and the Ugly", "1966", "6"]))
-# 					.addRow(new TreeViewRow(["Schindler's List", "1993", "7"]))
-# 					.addRow(new TreeViewRow(["Angry Men", "1957", "8"]))
-# 					.addRow(new TreeViewRow(["The Lord of the Rings: The Return of the King", "2003", "9"]))
-# 					.addRow(new TreeViewRow(["Fight Club", "1999", "10"]));
+#--- tree 1 -------------------------------------------------------------------
+ttk::treeview .n.panedPane.panedWindow.tree1
 
-# 		panedWindow
-# 			.addPane(tree1).setPaneWeight(0, 1)
-# 			.addPane(tree2).setPaneWeight(1, 1)
-# 			.pack(10, 0, GeometrySide.top, GeometryFill.both, AnchorPosition.center, true);
+#--- heading
+.n.panedPane.panedWindow.tree1 heading #0 -text "Directory listing" -anchor w
 
-# 		return panedPane;
+#--- insert items
+.n.panedPane.panedWindow.tree1 insert {} 1 -id "id_computer" -text "Computer" -open true -tags "computer"
+	.n.panedPane.panedWindow.tree1 insert "id_computer" 1 -id "id_documents" -text "Documents" -open true -tags "folder"
+		.n.panedPane.panedWindow.tree1 insert "id_documents" 1 -text "Important notes.txt" -tags "file"
+		.n.panedPane.panedWindow.tree1 insert "id_documents" 2 -text "The D Programming Language.pdf" -tags "pdf"
+	.n.panedPane.panedWindow.tree1 insert "id_computer" 2 -id "id_pictures" -text "Pictures" -open true -tags "folder"
+		.n.panedPane.panedWindow.tree1 insert "id_pictures" 1 -text "Gary and Tessa.jpg" -tags "image"
+	.n.panedPane.panedWindow.tree1 insert "id_computer" 3 -id "id_videos" -text "Videos" -open true -tags "folder"
+		.n.panedPane.panedWindow.tree1 insert "id_videos" 1 -text "Carlito's Way (1993).mpg" -tags "video"
+		.n.panedPane.panedWindow.tree1 insert "id_videos" 2 -text "Aliens (1986).mpg" -tags "video"
+
+#--- setup tags
+.n.panedPane.panedWindow.tree1 tag configure "computer" -image [image create photo -file "./media/computer.png"]
+.n.panedPane.panedWindow.tree1 tag configure "folder" -image [image create photo -file "./media/folder.png"]
+.n.panedPane.panedWindow.tree1 tag configure "file" -image [image create photo -file "./media/page.png"]
+.n.panedPane.panedWindow.tree1 tag configure "pdf" -image [image create photo -file "./media/page_white_acrobat.png"]
+.n.panedPane.panedWindow.tree1 tag configure "image" -image [image create photo -file "./media/images.png"]
+.n.panedPane.panedWindow.tree1 tag configure "video" -image [image create photo -file "./media/film.png"]
+
+#--- add to paned window
+.n.panedPane.panedWindow add .n.panedPane.panedWindow.tree1
+
+
+
+
+
+
+
+
+#--- tree 2 -------------------------------------------------------------------
+ttk::treeview .n.panedPane.panedWindow.tree2 -show "headings" -columns "a b c" 
+
+#--- heading
+.n.panedPane.panedWindow.tree2 heading 0 -text "Film" -anchor w
+.n.panedPane.panedWindow.tree2 heading 1 -text "Year"
+.n.panedPane.panedWindow.tree2 heading 2 -text "IMDB ranking"
+
+.n.panedPane.panedWindow.tree2 column 1 -width 20
+.n.panedPane.panedWindow.tree2 column 2 -width 50
+
+
+#--- add items
+.n.panedPane.panedWindow.tree2 insert {} 1 -values "{The Shawshank Redemption} 1994 1"
+.n.panedPane.panedWindow.tree2 insert {} 2 -values "{The Godfather} 1972 2"
+.n.panedPane.panedWindow.tree2 insert {} 3 -values "{The Godfather: Part II} 1974 3"
+.n.panedPane.panedWindow.tree2 insert {} 4 -values "{The Dark Knight} 2008 4"
+.n.panedPane.panedWindow.tree2 insert {} 5 -values "{Pulp Fiction} 1994 5"
+.n.panedPane.panedWindow.tree2 insert {} 6 -values "{The Good, the Bad and the Ugly} 1966 6"
+.n.panedPane.panedWindow.tree2 insert {} 7 -values "{Schindler's List} 1993 7"
+.n.panedPane.panedWindow.tree2 insert {} 8 -values "{Angry Men} 1957 8"
+.n.panedPane.panedWindow.tree2 insert {} 9 -values "{The Lord of the Rings: The Return of the King} 2003 9"
+.n.panedPane.panedWindow.tree2 insert {} 10 -values "{Fight Club} 1999 10"
+
+
+#--- add to paned window
+.n.panedPane.panedWindow add .n.panedPane.panedWindow.tree2
+
+
+
+
+
+
+
+
+
+
+
+
+
