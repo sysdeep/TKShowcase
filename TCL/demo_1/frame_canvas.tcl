@@ -1,5 +1,60 @@
 # https://www.tcl.tk/man/tcl8.6/TkCmd/contents.htm
+# https://www.tcl.tk/man/tcl8.6/TkCmd/canvas.htm
+# https://www.tcl.tk/man/tcl8.6/TkCmd/scrollbar.htm
+# https://www.tcl.tk/man/tcl8.6/TkCmd/grid.htm
 frame .n.canvasPane
+
+frame .n.canvasPane.container -bg red
+pack .n.canvasPane.container -side top -fill both -anchor center -padx 10 -pady 10 -expand true
+
+
+
+
+canvas .n.canvasPane.container.canvas -bg "bisque" -cursor "hand1" -scrollregion "-300 -250 610 500" \
+	-xscrollcommand {.n.canvasPane.container.xscroll set} -yscrollcommand {.n.canvasPane.container.yscroll set}
+
+
+.n.canvasPane.container.canvas create rectangle 10 10 200 100 -tags "tagged"
+.n.canvasPane.container.canvas create arc 10 110 110 210 -fill paleGreen -style pie
+.n.canvasPane.container.canvas create image 210 10 -image [image create photo -file "./media/thumbnail.png"]
+.n.canvasPane.container.canvas create image 260 10 -image [image create photo -file "./media/thumbnail.gif"]
+.n.canvasPane.container.canvas create line 120 110 200 110 200 160 -arrow last
+.n.canvasPane.container.canvas create oval 10 170 200 245 -fill rosyBrown3
+.n.canvasPane.container.canvas create polygon 220 80 320 80 300 120 240 120 -fill rosyBrown3
+
+button .n.canvasPane.container.button -text "Embedded\nWidget" -image [image create photo -file "./media/error.png"] -compound top \
+	-height 100 -width 100
+.n.canvasPane.container.canvas create window 220 140 -window .n.canvasPane.container.button
+
+.n.canvasPane.container.canvas itemconfigure "tagged" -fill "salmon"
+.n.canvasPane.container.canvas xview moveto 0.25
+.n.canvasPane.container.canvas yview moveto 0.24
+
+
+#--- [scan dragto %x %y 1] - 1 - скорость
+bind .n.canvasPane.container.canvas <B1-Motion> { .n.canvasPane.container.canvas scan dragto %x %y 1 }
+bind .n.canvasPane.container.canvas <ButtonPress-1> { .n.canvasPane.container.canvas scan mark %x %y }
+
+
+
+
+
+scrollbar .n.canvasPane.container.xscroll -orien horizontal -command {.n.canvasPane.container.canvas xview}
+scrollbar .n.canvasPane.container.yscroll -orien vertical -command {.n.canvasPane.container.canvas yview}
+
+
+
+grid .n.canvasPane.container.canvas -sticky nsew -column 0 -row 0
+grid .n.canvasPane.container.xscroll -sticky esw -column 0 -row 1
+grid .n.canvasPane.container.yscroll -sticky nes -column 1 -row 0 -rowspan 2
+
+
+#--- set fill all(0 - index of widget in grid)
+grid rowconfigure .n.canvasPane.container 0 -weight 1
+grid columnconfigure .n.canvasPane.container 0 -weight 1
+
+
+
 
 
 
@@ -43,4 +98,32 @@ frame .n.canvasPane
 # 					.grid(0, 0, 0, 0, 1, 1, "nesw");
 
 # 		return canvasPane; 
+# 		
+# 		
+# 		
+# 		
+# 		
+# 		
+# 		
+# # 		/**
+# 	 * Mark a point in the canvas to drag from.
+# 	 *
+# 	 * Params:
+# 	 *     args = The callback args.
+# 	 */
+# 	private void mark(CommandArgs args)
+# 	{
+# 		this._canvas.setScanMark(args.event.x, args.event.y);
+# 	}
+
+# 	/**
+# 	 * Drag the canvas to reposition the contents.
+# 	 *
+# 	 * Params:
+# 	 *     args = The callback args.
+# 	 */
+# 	private void drag(CommandArgs args)
+# 	{
+# 		this._canvas.scanDragTo(args.event.x, args.event.y);
+# 	}
 
