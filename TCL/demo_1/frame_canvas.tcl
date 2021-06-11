@@ -1,6 +1,7 @@
 # https://www.tcl.tk/man/tcl8.6/TkCmd/contents.htm
 # https://www.tcl.tk/man/tcl8.6/TkCmd/canvas.htm
 # https://www.tcl.tk/man/tcl8.6/TkCmd/scrollbar.htm
+# https://www.tcl.tk/man/tcl8.6/TkCmd/ttk_scrollbar.htm
 # https://www.tcl.tk/man/tcl8.6/TkCmd/grid.htm
 frame .n.canvasPane
 
@@ -42,7 +43,7 @@ bind .n.canvasPane.container.canvas <ButtonPress-1> { .n.canvasPane.container.ca
 
 
 
-scrollbar .n.canvasPane.container.xscroll -orien horizontal -command {.n.canvasPane.container.canvas xview}
+ttk::scrollbar .n.canvasPane.container.xscroll -orien horizontal -command {.n.canvasPane.container.canvas xview}
 scrollbar .n.canvasPane.container.yscroll -orien vertical -command {.n.canvasPane.container.canvas yview}
 
 

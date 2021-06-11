@@ -1,5 +1,8 @@
 # https://www.tcl.tk/man/tcl8.6/TkCmd/contents.htm
 # https://www.tcl.tk/man/tcl8.6/TkCmd/getOpenFile.htm
+# https://www.tcl.tk/man/tcl8.6/TkCmd/messageBox.htm
+# https://www.tcl.tk/man/tcl8.6/TkCmd/fontchooser.htm
+
 frame .n.dialogsPane
 
 labelframe .n.dialogsPane.modals_frame -text "Modal"
@@ -33,7 +36,7 @@ grid [entry .n.dialogsPane.modals_frame.e_save_file] \
 	-column 1 -row 3 -sticky "ew" -padx 10 
 
 #--- message
-grid [button .n.dialogsPane.modals_frame.b_message -text "Message" -image [image create photo -file "./media/comment.png"] -compound left] \
+grid [button .n.dialogsPane.modals_frame.b_message -text "Message" -image [image create photo -file "./media/comment.png"] -compound left -command openMessageDialog] \
 	-column 0 -row 4 -padx 10 -pady 10 -sticky "ew"
 grid [entry .n.dialogsPane.modals_frame.e_message] \
 	-column 1 -row 4 -sticky "ew" -padx 10 
@@ -42,7 +45,7 @@ grid [entry .n.dialogsPane.modals_frame.e_message] \
 
 
 
-
+#--- non modal ----------------------------------------------------------------
 labelframe .n.dialogsPane.non_modals_frame -text "Non Modal"
 pack .n.dialogsPane.non_modals_frame -side top -fill both -padx 10 -pady 10 -expand 1 -anchor "center"
 
@@ -50,7 +53,7 @@ grid columnconfigure .n.dialogsPane.non_modals_frame 0 -weight 0
 grid columnconfigure .n.dialogsPane.non_modals_frame 1 -weight 1
 
 #--- color
-grid [button .n.dialogsPane.non_modals_frame.b_font -text "Fonta" -image [image create photo -file "./media/style.png"] -compound left] \
+grid [button .n.dialogsPane.non_modals_frame.b_font -text "Font" -image [image create photo -file "./media/style.png"] -compound left -command openFontDialog] \
 	-column 0 -row 0 -padx 10 -pady 10
 grid [entry .n.dialogsPane.non_modals_frame.e_font] \
 	-column 1 -row 0 -sticky "ew" -padx 10
@@ -90,6 +93,32 @@ proc openSaveFileDialog {} {
 	set file [tk_getSaveFile -initialdir ~ -title "Choose a file to saving"]
 	.n.dialogsPane.modals_frame.e_save_file delete 0 end
 	.n.dialogsPane.modals_frame.e_save_file insert 0 $file
+}
+
+proc openMessageDialog {} {
+	set file [tk_messageBox \
+		-detail "Nunc at aliquam arcu. Sed eget tellus ligula.\nSed egestas est et tempus cursus." \
+		-message "Lorem ipsum dolor sit amet." \
+		-type okcancel \
+		-title "Choose a file to saving"]
+	.n.dialogsPane.modals_frame.e_message delete 0 end
+	.n.dialogsPane.modals_frame.e_message insert 0 $file
+}
+
+
+
+
+
+proc openFontDialog {} {
+
+	proc __set_font_input {value} {
+		.n.dialogsPane.non_modals_frame.e_font delete 0 end
+		.n.dialogsPane.non_modals_frame.e_font insert 0 $value
+	}
+
+	tk fontchooser configure -command __set_font_input
+	tk fontchooser show
+
 }
 
 
@@ -159,14 +188,3 @@ proc openSaveFileDialog {} {
 
 
 
-
-
-
-
-# private void openColorDialog(CommandArgs args)
-# 	{
-# 		auto dialog = new ColorDialog("Choose a color")
-# 			.setInitialColor(Color.beige)
-# 			.show();
-# 		this._colorEntry.setValue(dialog.getResult());
-# 	}

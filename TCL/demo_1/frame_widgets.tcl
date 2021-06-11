@@ -1,27 +1,48 @@
 # https://www.tcl.tk/man/tcl8.6/TkCmd/contents.htm
+# https://www.tcl.tk/man/tcl8.6/TkCmd/spinbox.htm
+# https://www.tcl.tk/man/tcl8.6/TkCmd/ttk_menubutton.htm
+
+
+
 frame .n.widgetPane
 
 
 #--- text entries -------------------------------------------------------------
 pack [labelframe .n.widgetPane.lf -text "Text Entry"] -side top -fill both -padx 10 -pady 10
-# button .widgetPane.button -text "wp"
-# grid .widgetPane.button
 
 
 
-text .n.widgetPane.lf.text -width 0 -height 9
+#--- text
+text .n.widgetPane.lf.text -width 0 -height 6
 .n.widgetPane.lf.text insert 1.0 "import std.stdio;\n\nvoid main(string[] args)\n{\n\twriteln(\"Hello World!\");\n}"
 pack .n.widgetPane.lf.text -side bottom -fill both -anchor nw -padx 5
 # -width 0 -height 3 -text "import std.stdio;\n\nvoid main(string[] args)\n{\n\twriteln(\"Hello World!\");\n}"
 # button .n.widgetPane.exit_button -text Exit -command {exit} -width 10
 # 
-pack [entry .n.widgetPane.lf.entry ] -side left -fill x -anchor nw -padx 5 -expand true
-# this._entry = new Entry(entryLabelFrame)
-			# 	.pack(5, 0, GeometrySide.left, GeometryFill.x, AnchorPosition.northWest, true);
 
 
-# TODO - mouse wheel
-spinbox .n.widgetPane.lf.spinbox -width 5 -wrap true -values "foo bar baz qux"
+#--- entry
+entry .n.widgetPane.lf.entry -textvariable myclock
+pack .n.widgetPane.lf.entry -side left -fill x -anchor nw -padx 5 -expand true
+
+#--- entry time ticker
+proc clock:set var {
+    global $var
+    set $var [clock format [clock seconds] -format %H:%M:%S]
+    after 1000 [list clock:set $var]
+}
+
+clock:set myclock          ;# call once, keeps ticking ;-) RS
+
+
+
+
+
+
+
+#--- spinbox
+ttk::spinbox .n.widgetPane.lf.spinbox -width 5 -wrap true -values "foo bar baz qux"
+.n.widgetPane.lf.spinbox set foo
 pack .n.widgetPane.lf.spinbox -side left -padx 5
 			# auto entry3 = new SpinBox(entryLabelFrame)
 			# 	.setData(["$foo", "[bar]", "\"baz\"", "{qux}"])
@@ -30,7 +51,7 @@ pack .n.widgetPane.lf.spinbox -side left -padx 5
 			# 	.pack(5, 0, GeometrySide.left);
 
 
-
+#--- combobox
 pack [ttk::combobox .n.widgetPane.lf.combobox -values "Option_1 Option_2 Option_3"] -side left -fill x -anchor nw -padx 5
 .n.widgetPane.lf.combobox current 0
 			
@@ -67,7 +88,9 @@ pack [button .n.widgetPane.buttonsFrame.b1 -text "Text button"] -padx 5 -pady 5
 
 pack [button .n.widgetPane.buttonsFrame.b2 -text "Image button" -image [image create photo -file "./media/thumbnail.png"] -compound left ] -padx 5 -pady 5
 
-menubutton .n.widgetPane.buttonsFrame.b3 -text "Menu button" -menu .n.widgetPane.buttonsFrame.b3.menu
+
+#--- menu button
+ttk::menubutton .n.widgetPane.buttonsFrame.b3 -text "Menu button" -menu .n.widgetPane.buttonsFrame.b3.menu
 pack .n.widgetPane.buttonsFrame.b3 -padx 5 -pady 5
 
 menu .n.widgetPane.buttonsFrame.b3.menu -tearoff false
