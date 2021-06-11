@@ -7,8 +7,8 @@ from tkinter import ttk
 from .tabs import Widgets, Panels, Canvas, Dialogs
 
 class DemoApp(tkinter.Toplevel):
-	def __init__(self, master, *args, **kwargs):
-		super(DemoApp, self).__init__(master, *args, **kwargs)
+	def __init__(self, *args, **kwargs):
+		super(DemoApp, self).__init__(*args, **kwargs)
 
 		self.title("DemoApp")
 
@@ -64,11 +64,12 @@ class DemoApp(tkinter.Toplevel):
 if __name__ == "__main__":
 
 
-	tk = tkinter.Tk()
+	# tk = tkinter.Tk()
 
 
 
-	modal = DemoApp(tk)
+	modal = DemoApp()
+	# modal = DemoApp(tk)
 	# modal.show()
 
-	tk.mainloop()
+	modal.mainloop()
