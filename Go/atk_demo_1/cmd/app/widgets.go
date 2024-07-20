@@ -53,20 +53,11 @@ func newWidgets(parent tk.Widget) *tk.Frame {
 	f := tk.NewFrame(parent)
 	f.SetReliefStyle(tk.ReliefStyleGroove)
 
-	lf := tk.NewLabelFrame(f)
-	lf.SetLabelText("Text Entry")
-
-	tk.NewVPackLayout(f).AddWidgets(lf)
-
 	//--- text
-	text := tk.NewText(lf, tk.WidgetAttrHeight(6))
-	text.InsertText(0, "import std.stdio;\n\nvoid main(string[] args)\n{\n\twriteln(\"Hello World!\");\n}")
 
 	// 	 .n.widgetPane.lf.text -width 0 -height 6
 	// .n.widgetPane.lf.text insert 1.0 "import std.stdio;\n\nvoid main(string[] args)\n{\n\twriteln(\"Hello World!\");\n}"
 	// pack .n.widgetPane.lf.text -side bottom -fill both -anchor nw -padx 5
-
-	entry := tk.NewEntry(lf)
 
 	// 	#--- entry
 	// entry .n.widgetPane.lf.entry -textvariable myclock
@@ -81,12 +72,6 @@ func newWidgets(parent tk.Widget) *tk.Frame {
 
 	// clock:set myclock          ;# call once, keeps ticking ;-) RS
 
-	spin := tk.NewSpinBox(lf)
-	spinValues := []string{"foo", "bar", "baz", "qux"}
-	log.Println(spinValues)
-	spin.SetTextValues(spinValues)
-	spin.Entry().SetWidth(5)
-
 	// #--- spinbox
 	// ttk::spinbox .n.widgetPane.lf.spinbox -width 5 -wrap true -values "foo bar baz qux"
 	// .n.widgetPane.lf.spinbox set foo
@@ -98,18 +83,68 @@ func newWidgets(parent tk.Widget) *tk.Frame {
 	// 			# 	.pack(5, 0, GeometrySide.left);
 
 	// tk.NewComboBox(lf, tk.WidgetAttrInitUseTheme(true))
-	combo := tk.NewComboBox(lf, tk.WidgetAttrInitUseTheme(true))
-	comboValues := []string{"option 1", "option 2", "option 3", "option 4"}
-	combo.SetValues(comboValues)
 	// #--- combobox
 	// pack [ttk::combobox .n.widgetPane.lf.combobox -values "Option_1 Option_2 Option_3"] -side left -fill x -anchor nw -padx 5
 	// .n.widgetPane.lf.combobox current 0
 
-	lll := tk.NewVPackLayout(lf)
+	tk.NewVPackLayout(f).AddWidgets(make_text_entry(f))
+	// lll := tk.NewVPackLayout(f)
 
-	lll.AddWidgets(text, entry, spin, combo)
+	// lll.AddWidgets(text, make_text_entry(f), entry, spin, combo)
 
 	// pack [labelframe .n.widgetPane.lf -text "Text Entry"] -side top -fill both -padx 10 -pady 10
 
 	return f
+}
+
+func make_text_entry(parent tk.Widget) *tk.LabelFrame {
+
+	// main frame
+	main_frame := tk.NewLabelFrame(parent)
+	main_frame.SetLabelText("Text Entry")
+
+	// row 1
+	row1 := tk.NewFrame(main_frame)
+
+	// entry
+	entry := tk.NewEntry(row1)
+
+	// spinner
+	spin := tk.NewSpinBox(row1)
+	spinValues := []string{"foo", "bar", "baz", "qux"}
+	log.Println(spinValues)
+	spin.SetTextValues(spinValues)
+	spin.Entry().SetWidth(5)
+
+	// combo
+	combo := tk.NewComboBox(row1, tk.WidgetAttrInitUseTheme(true))
+	comboValues := []string{"option 1", "option 2", "option 3", "option 4"}
+	combo.SetValues(comboValues)
+
+	// row 1 layout
+	pl := tk.NewHPackLayout(row1)
+	pl.AddWidget(entry,
+		tk.PackAttrSide(tk.SideLeft),
+		tk.PackAttrFillX(),
+		tk.PackAttrAnchor(tk.AnchorNorthWest),
+		tk.PackAttrExpand(true))
+	pl.AddWidget(spin,
+		tk.PackAttrSide(tk.SideLeft),
+		tk.PackAttrPadx(5))
+	pl.AddWidget(combo,
+		tk.PackAttrSide(tk.SideLeft),
+		tk.PackAttrFillX(),
+		tk.PackAttrAnchor(tk.AnchorNorthWest),
+		tk.PackAttrPadx(5))
+
+	// text
+	text := tk.NewText(main_frame, tk.WidgetAttrHeight(6))
+	text.InsertText(0, "import std.stdio;\n\nvoid main(string[] args)\n{\n\twriteln(\"Hello World!\");\n}")
+
+	// main layout
+	ml_pack := tk.NewVPackLayout(main_frame)
+	ml_pack.AddWidget(row1, tk.PackAttrExpand(true), tk.PackAttrFillX(), tk.PackAttrPady(2), tk.PackAttrPadx(2))
+	ml_pack.AddWidget(text)
+
+	return main_frame
 }

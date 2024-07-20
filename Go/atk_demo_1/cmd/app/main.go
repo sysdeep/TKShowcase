@@ -27,7 +27,7 @@ func NewWindow() *Window {
 		tk.Quit()
 	})
 	tk.NewVPackLayout(mw).AddWidgets(tabs, lbl, tk.NewLayoutSpacer(mw, 0, true), btn)
-	// mw.ResizeN(300, 200)
+	mw.ResizeN(800, 600)
 	return mw
 }
 
