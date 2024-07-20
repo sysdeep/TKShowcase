@@ -1,6 +1,6 @@
 # TKShowcase
-tkinter widget examples
 
+tcl/tk widget examples
 
 ## Resources
 
