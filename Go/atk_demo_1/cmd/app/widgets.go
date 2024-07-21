@@ -91,8 +91,30 @@ func newWidgets(parent tk.Widget) *tk.Frame {
 	// buttons frame
 	buttons_frame := tk.NewFrame(f)
 	buttons_layout := tk.NewHPackLayout(buttons_frame)
-	buttons_layout.AddWidget(make_buttons_frame(buttons_frame))
-	buttons_layout.AddWidget(make_check_buttons_frame(buttons_frame))
+	buttons_layout.AddWidget(make_buttons_frame(buttons_frame),
+		tk.PackAttrPadx(10),
+		tk.PackAttrPady(10),
+		tk.PackAttrSideLeft(),
+		tk.PackAttrFillBoth(),
+		tk.PackAttrExpand(true),
+		tk.PackAttrAnchor(tk.AnchorCenter),
+	)
+	buttons_layout.AddWidget(make_check_buttons_frame(buttons_frame),
+		tk.PackAttrPadx(10),
+		tk.PackAttrPady(10),
+		tk.PackAttrSideLeft(),
+		tk.PackAttrFillBoth(),
+		tk.PackAttrExpand(true),
+		tk.PackAttrAnchor(tk.AnchorCenter),
+	)
+	buttons_layout.AddWidget(make_radio_buttons_frame(buttons_frame),
+		tk.PackAttrPadx(10),
+		tk.PackAttrPady(10),
+		tk.PackAttrSideLeft(),
+		tk.PackAttrFillBoth(),
+		tk.PackAttrExpand(true),
+		tk.PackAttrAnchor(tk.AnchorCenter),
+	)
 
 	layout := tk.NewVPackLayout(f)
 	layout.AddWidget(make_text_entry(f),
@@ -218,32 +240,50 @@ func make_check_buttons_frame(parent tk.Widget) *tk.LabelFrame {
 
 	// main frame
 	main_frame := tk.NewLabelFrame(parent)
-	main_frame.SetLabelText("Buttons")
-
-	// text button
-	text_button := tk.NewButton(main_frame, "Text button")
-
-	// image button
-	image, _ := tk.LoadImage("./assets/thumbnail.png")
-	image_button := tk.NewButton(main_frame, "Image button", tk.ButtonAttrCompound(tk.CompoundLeft))
-	image_button.SetImage(image)
-
-	// menu button
-	menu := tk.NewMenu(main_frame, tk.MenuAttrTearoff(false))
-	for i := 1; i < 4; i++ {
-		// NOTE: for go < 1.22 - need local variable for capture in closure
-		local_i := i
-		menu.AddAction(tk.NewActionEx(fmt.Sprintf("Option %d", i), func() {
-			fmt.Println(fmt.Sprintf("Option %d was selected", local_i))
-		}))
-	}
-	menu_button := tk.NewMenuButton(main_frame, "Menu button")
-	menu_button.SetMenu(menu)
+	main_frame.SetLabelText("Check buttons")
 
 	main_layout := tk.NewVPackLayout(main_frame)
-	main_layout.AddWidget(text_button, tk.PackAttrPadx(5), tk.PackAttrPady(5))
-	main_layout.AddWidget(image_button, tk.PackAttrPadx(5), tk.PackAttrPady(5))
-	main_layout.AddWidget(menu_button, tk.PackAttrPadx(5), tk.PackAttrPady(5))
+
+	// buttons
+	var btn *tk.CheckButton
+	is_selected := false
+	for i := 1; i < 4; i++ {
+		local_i := i
+		btn = tk.NewCheckButton(main_frame, fmt.Sprintf("Option %d", local_i))
+		main_layout.AddWidget(btn, tk.PackAttrPadx(5), tk.PackAttrPady(5))
+		if !is_selected {
+			btn.SetChecked(true)
+			is_selected = true
+		}
+	}
+
+	return main_frame
+}
+
+func make_radio_buttons_frame(parent tk.Widget) *tk.LabelFrame {
+
+	// main frame
+	main_frame := tk.NewLabelFrame(parent)
+	main_frame.SetLabelText("Radio buttons")
+
+	main_layout := tk.NewVPackLayout(main_frame)
+
+	// buttons
+	group := tk.NewRadioGroup()
+	is_selected := false
+	var btn *tk.RadioButton
+	for i := 1; i < 4; i++ {
+		local_i := i
+		btn = tk.NewRadioButton(main_frame, fmt.Sprintf("Option %d", local_i))
+		main_layout.AddWidget(btn, tk.PackAttrPadx(5), tk.PackAttrPady(5))
+
+		group.AddRadio(btn, i)
+
+		if !is_selected {
+			btn.SetChecked(true)
+			is_selected = true
+		}
+	}
 
 	return main_frame
 }
