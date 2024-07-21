@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/visualfc/atk/tk"
@@ -87,7 +88,27 @@ func newWidgets(parent tk.Widget) *tk.Frame {
 	// pack [ttk::combobox .n.widgetPane.lf.combobox -values "Option_1 Option_2 Option_3"] -side left -fill x -anchor nw -padx 5
 	// .n.widgetPane.lf.combobox current 0
 
-	tk.NewVPackLayout(f).AddWidgets(make_text_entry(f))
+	// buttons frame
+	buttons_frame := tk.NewFrame(f)
+	buttons_layout := tk.NewHPackLayout(buttons_frame)
+	buttons_layout.AddWidget(make_buttons_frame(buttons_frame))
+
+	layout := tk.NewVPackLayout(f)
+	layout.AddWidget(make_text_entry(f),
+		tk.PackAttrFillX(),
+		tk.PackAttrPadx(10),
+		tk.PackAttrPady(10),
+	)
+
+	// pack .n.widgetPane.buttonsFrame -padx 10 -pady 10 -side left -fill both -expand true -anchor center
+	layout.AddWidget(buttons_frame,
+		tk.PackAttrPadx(10),
+		tk.PackAttrPady(10),
+		tk.PackAttrSideLeft(),
+		tk.PackAttrFillBoth(),
+		tk.PackAttrExpand(true),
+		tk.PlaceAttrAnchor(tk.AnchorCenter),
+	)
 	// lll := tk.NewVPackLayout(f)
 
 	// lll.AddWidgets(text, make_text_entry(f), entry, spin, combo)
@@ -143,8 +164,61 @@ func make_text_entry(parent tk.Widget) *tk.LabelFrame {
 
 	// main layout
 	ml_pack := tk.NewVPackLayout(main_frame)
-	ml_pack.AddWidget(row1, tk.PackAttrExpand(true), tk.PackAttrFillX(), tk.PackAttrPady(2), tk.PackAttrPadx(2))
-	ml_pack.AddWidget(text)
+	ml_pack.AddWidget(row1,
+		tk.PackAttrExpand(true),
+		tk.PackAttrFillX(),
+		tk.PackAttrPady(2),
+		tk.PackAttrPadx(2),
+	)
+	ml_pack.AddWidget(text,
+		tk.PackAttrFillX(),
+		tk.PackAttrPady(2),
+		tk.PackAttrPadx(2),
+	)
+
+	return main_frame
+}
+
+func make_buttons_frame(parent tk.Widget) *tk.LabelFrame {
+
+	// main frame
+	main_frame := tk.NewLabelFrame(parent)
+	main_frame.SetLabelText("Buttons")
+
+	// text button
+	text_button := tk.NewButton(main_frame, "Text button")
+
+	// image button
+	// TODO: image
+	// pack [button .n.widgetPane.buttonsFrame.b2 -text "Image button"
+	// -image [image create photo -file "./media/thumbnail.png"] -compound left ] -padx 5 -pady 5
+	image, _ := tk.LoadImage("./assets/thumbnail.png")
+	image_button := tk.NewButton(main_frame, "Image button", tk.ButtonAttrCompound(tk.CompoundLeft))
+	image_button.SetImage(image)
+
+	// menu button
+	// ttk::menubutton .n.widgetPane.buttonsFrame.b3 -text "Menu button" -menu .n.widgetPane.buttonsFrame.b3.menu
+	// pack .n.widgetPane.buttonsFrame.b3 -padx 5 -pady 5
+	//
+	// menu .n.widgetPane.buttonsFrame.b3.menu -tearoff false
+	// .n.widgetPane.buttonsFrame.b3.menu add command -label "Option 1"
+	// .n.widgetPane.buttonsFrame.b3.menu add command -label "Option 2"
+	// .n.widgetPane.buttonsFrame.b3.menu add command -label "Option 3"
+	menu := tk.NewMenu(main_frame, tk.MenuAttrTearoff(false))
+	for i := 1; i < 4; i++ {
+		// NOTE: for go < 1.22 - need local variable for capture in closure
+		local_i := i
+		menu.AddAction(tk.NewActionEx(fmt.Sprintf("Option %d", i), func() {
+			fmt.Println(fmt.Sprintf("Option %d was selected", local_i))
+		}))
+	}
+	menu_button := tk.NewMenuButton(main_frame, "Menu button")
+	menu_button.SetMenu(menu)
+
+	main_layout := tk.NewVPackLayout(main_frame)
+	main_layout.AddWidget(text_button, tk.PackAttrPadx(5), tk.PackAttrPady(5))
+	main_layout.AddWidget(image_button, tk.PackAttrPadx(5), tk.PackAttrPady(5))
+	main_layout.AddWidget(menu_button, tk.PackAttrPadx(5), tk.PackAttrPady(5))
 
 	return main_frame
 }

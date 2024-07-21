@@ -26,7 +26,17 @@ func NewWindow() *Window {
 	btn.OnCommand(func() {
 		tk.Quit()
 	})
-	tk.NewVPackLayout(mw).AddWidgets(tabs, lbl, tk.NewLayoutSpacer(mw, 0, true), btn)
+
+	// layout
+	layout := tk.NewVPackLayout(mw)
+	layout.AddWidget(tabs,
+		tk.PackAttrFillX(),
+		tk.PackAttrPadx(10),
+		tk.PackAttrPady(10))
+	layout.AddWidget(lbl)
+	layout.AddWidget(tk.NewLayoutSpacer(mw, 0, true))
+	layout.AddWidget(btn)
+	//.AddWidgets(tabs, lbl, tk.NewLayoutSpacer(mw, 0, true), btn)
 	mw.ResizeN(800, 600)
 	return mw
 }
