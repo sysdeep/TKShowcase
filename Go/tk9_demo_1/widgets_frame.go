@@ -74,5 +74,125 @@ func mainWidgetsFrame() *tk.TFrameWidget {
 		tk.Anchor("nw"),
 	)
 
+	makeButtonsBox(frame.Window)
+	makeCheckButtonsBox(frame.Window)
+	makeRadioButtonsBox(frame.Window)
+
 	return frame
+}
+
+func makeButtonsBox(parent *tk.Window) {
+
+	frame := parent.Labelframe(tk.Txt("Buttons"))
+
+	tk.Pack(
+		frame,
+		tk.Side("left"),
+		tk.Fill("both"),
+		tk.Padx(10),
+		tk.Pady(10),
+		tk.Expand(true),
+		tk.Anchor("center"),
+	)
+
+	// text button
+	tk.Pack(
+		frame.TButton(tk.Txt("Text button")),
+		tk.Padx(5),
+		tk.Pady(5),
+	)
+
+	// TODO: image
+	// image button
+	tk.Pack(
+		frame.TButton(tk.Txt("Image button")),
+		tk.Padx(5),
+		tk.Pady(5),
+	)
+
+	// menu button
+	mbMenu := frame.Menu(tk.Tearoff(false))
+	mbMenu.AddCommand(tk.Lbl("Option 1"))
+	mbMenu.AddCommand(tk.Lbl("Option 2"))
+	mbMenu.AddCommand(tk.Lbl("Option 3"))
+
+	mb := frame.TMenubutton(tk.Txt("Menu button"), tk.Mnu(mbMenu))
+	tk.Pack(
+		mb,
+		tk.Padx(5),
+		tk.Pady(5),
+	)
+
+}
+
+func makeCheckButtonsBox(parent *tk.Window) {
+
+	frame := parent.Labelframe(tk.Txt("Check buttons"))
+
+	tk.Pack(
+		frame,
+		tk.Side("left"),
+		tk.Fill("both"),
+		tk.Padx(10),
+		tk.Pady(10),
+		tk.Expand(true),
+		tk.Anchor("center"),
+	)
+
+	tk.Pack(
+		frame.TCheckbutton(tk.Txt("Option 1"), tk.Variable("off")),
+		tk.Padx(5),
+		tk.Pady(5),
+	)
+
+	cb2 := frame.TCheckbutton(tk.Txt("Option 2"), tk.Variable("off"))
+	cb2.Invoke()
+	tk.Pack(
+		cb2,
+		tk.Padx(5),
+		tk.Pady(5),
+	)
+
+	tk.Pack(
+		frame.TCheckbutton(tk.Txt("Option 3"), tk.Variable("off")),
+		tk.Padx(5),
+		tk.Pady(5),
+	)
+
+}
+
+func makeRadioButtonsBox(parent *tk.Window) {
+
+	frame := parent.Labelframe(tk.Txt("Radio buttons"))
+
+	tk.Pack(
+		frame,
+		tk.Side("left"),
+		tk.Fill("both"),
+		tk.Padx(10),
+		tk.Pady(10),
+		tk.Expand(true),
+		tk.Anchor("center"),
+	)
+
+	current := tk.Variable("2")
+
+	tk.Pack(
+		frame.TRadiobutton(tk.Txt("Option 1"), tk.Value("1"), current),
+		tk.Padx(5),
+		tk.Pady(5),
+	)
+
+	tk.Pack(
+		frame.TRadiobutton(tk.Txt("Option 2"), tk.Value("2"), current),
+		tk.Padx(5),
+		tk.Pady(5),
+	)
+
+	tk.Pack(
+		frame.TRadiobutton(tk.Txt("Option 3"), tk.Value("3"), current),
+		tk.Padx(5),
+		tk.Pady(5),
+	)
+
 }
