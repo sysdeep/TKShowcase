@@ -57,7 +57,14 @@ func makeFileMenu(menubar *tk.MenuWidget) *tk.MenuWidget {
 
 	// TODO: image
 	// .main_menu.file add command -label Exit -image img_close -compound left -accelerator "Ctrl-q" -command { exit }
-	fileMenu.AddCommand(tk.Lbl("Exit"), tk.Accelerator("Ctrl-q"), tk.Underline(1), tk.ExitHandler())
+	fileMenu.AddCommand(
+		tk.Lbl("Exit"),
+		tk.Accelerator("Ctrl-q"),
+		tk.Underline(1),
+		tk.ExitHandler(),
+		tk.Image(tk.NewPhoto(tk.File("./media/cancel.png"))),
+		tk.Compound("left"),
+	)
 
 	return fileMenu
 }
@@ -94,7 +101,13 @@ func makeHelpMenu(parent *tk.MenuWidget) *tk.MenuWidget {
 	menu := parent.Menu()
 
 	// todo: image
-	menu.AddCommand(tk.Lbl("About"), tk.Accelerator("F1"), tk.Command(showAboutModal))
+	menu.AddCommand(
+		tk.Lbl("About"),
+		tk.Accelerator("F1"),
+		tk.Command(showAboutModal),
+		tk.Image(tk.NewPhoto(tk.File("./media/help.png"))),
+		tk.Compound("left"),
+	)
 
 	return menu
 }

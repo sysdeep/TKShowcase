@@ -23,10 +23,30 @@ func main() {
 	nbk := tk.TNotebook()
 
 	// TODO: images
-	nbk.Add(mainWidgetsFrame(), tk.Txt("Widgets"))
-	nbk.Add(tk.TLabel(tk.Txt("TODO")), tk.Txt("Panes"))
-	nbk.Add(tk.TLabel(tk.Txt("TODO")), tk.Txt("Canvas"))
-	nbk.Add(tk.TLabel(tk.Txt("TODO")), tk.Txt("Dialogs"))
+	nbk.Add(
+		mainWidgetsFrame(),
+		tk.Txt("Widgets"),
+		tk.Image(tk.NewPhoto(tk.File("./media/layout_content.png"))),
+		tk.Compound("left"),
+	)
+	nbk.Add(
+		tk.TLabel(tk.Txt("TODO")),
+		tk.Txt("Panes"),
+		tk.Image(tk.NewPhoto(tk.File("./media/application_tile_horizontal.png"))),
+		tk.Compound("left"),
+	)
+	nbk.Add(
+		tk.TLabel(tk.Txt("TODO")),
+		tk.Txt("Canvas"),
+		tk.Image(tk.NewPhoto(tk.File("./media/shape_ungroup.png"))),
+		tk.Compound("left"),
+	)
+	nbk.Add(
+		tk.TLabel(tk.Txt("TODO")),
+		tk.Txt("Dialogs"),
+		tk.Image(tk.NewPhoto(tk.File("./media/application_double.png"))),
+		tk.Compound("left"),
+	)
 
 	tk.Pack(
 		nbk,

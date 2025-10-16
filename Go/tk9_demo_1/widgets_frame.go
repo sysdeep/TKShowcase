@@ -74,6 +74,7 @@ func mainWidgetsFrame() *tk.TFrameWidget {
 		tk.Anchor("nw"),
 	)
 
+	makeRangesBox(frame.Window)
 	makeButtonsBox(frame.Window)
 	makeCheckButtonsBox(frame.Window)
 	makeRadioButtonsBox(frame.Window)
@@ -105,7 +106,11 @@ func makeButtonsBox(parent *tk.Window) {
 	// TODO: image
 	// image button
 	tk.Pack(
-		frame.TButton(tk.Txt("Image button")),
+		frame.TButton(
+			tk.Txt("Image button"),
+			tk.Image(tk.NewPhoto(tk.File("./media/thumbnail.png"))),
+			tk.Compound("left"),
+		),
 		tk.Padx(5),
 		tk.Pady(5),
 	)
@@ -195,4 +200,43 @@ func makeRadioButtonsBox(parent *tk.Window) {
 		tk.Pady(5),
 	)
 
+}
+
+func makeRangesBox(parent *tk.Window) {
+	frame := parent.Labelframe(tk.Txt("Progress & Scale"))
+
+	tk.Pack(
+		frame,
+		tk.Side("bottom"),
+		tk.Fill("both"),
+		tk.Padx(10),
+		tk.Pady(10),
+		// tk.Expand(true),
+		tk.Anchor("center"),
+	)
+
+	// progress bar
+
+	tk.Pack(
+		frame.TProgressbar(tk.Value(4), tk.Maximum(10)),
+		tk.Side("top"),
+		tk.Fill("x"),
+		tk.Anchor("center"),
+		tk.Padx(5),
+		tk.Pady(5),
+	)
+
+	tk.Pack(
+		frame.TScale(
+			tk.From(10),
+			tk.To(0),
+			tk.Value(4),
+			// TODO: Command
+		),
+		tk.Side("top"),
+		tk.Fill("x"),
+		tk.Anchor("center"),
+		tk.Padx(5),
+		tk.Pady(5),
+	)
 }
