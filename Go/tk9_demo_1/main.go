@@ -30,13 +30,13 @@ func main() {
 		tk.Compound("left"),
 	)
 	nbk.Add(
-		tk.TLabel(tk.Txt("TODO")),
+		mainPanelsFrame(),
 		tk.Txt("Panes"),
 		tk.Image(tk.NewPhoto(tk.File("./media/application_tile_horizontal.png"))),
 		tk.Compound("left"),
 	)
 	nbk.Add(
-		tk.TLabel(tk.Txt("TODO")),
+		mainCanvasFrame(),
 		tk.Txt("Canvas"),
 		tk.Image(tk.NewPhoto(tk.File("./media/shape_ungroup.png"))),
 		tk.Compound("left"),
@@ -47,6 +47,8 @@ func main() {
 		tk.Image(tk.NewPhoto(tk.File("./media/application_double.png"))),
 		tk.Compound("left"),
 	)
+
+	nbk.Select(2)
 
 	tk.Pack(
 		nbk,
