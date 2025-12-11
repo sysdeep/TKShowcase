@@ -42,13 +42,14 @@ func main() {
 		tk.Compound("left"),
 	)
 	nbk.Add(
-		tk.TLabel(tk.Txt("TODO")),
+		makaeDialogsFrame(),
 		tk.Txt("Dialogs"),
 		tk.Image(tk.NewPhoto(tk.File("./media/application_double.png"))),
 		tk.Compound("left"),
 	)
 
-	nbk.Select(2)
+	// set default page
+	nbk.Select(3)
 
 	tk.Pack(
 		nbk,
