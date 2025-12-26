@@ -55,8 +55,6 @@ func makeFileMenu(menubar *tk.MenuWidget) *tk.MenuWidget {
 
 	fileMenu.AddSeparator()
 
-	// TODO: image
-	// .main_menu.file add command -label Exit -image img_close -compound left -accelerator "Ctrl-q" -command { exit }
 	fileMenu.AddCommand(
 		tk.Lbl("Exit"),
 		tk.Accelerator("Ctrl-q"),
@@ -100,7 +98,6 @@ menu .main_menu.help -tearoff 0
 func makeHelpMenu(parent *tk.MenuWidget) *tk.MenuWidget {
 	menu := parent.Menu()
 
-	// todo: image
 	menu.AddCommand(
 		tk.Lbl("About"),
 		tk.Accelerator("F1"),

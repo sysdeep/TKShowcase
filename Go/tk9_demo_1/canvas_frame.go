@@ -63,7 +63,6 @@ func mainCanvasFrame() *tk.TFrameWidget {
 	// bind .n.canvasPane.container.canvas <ButtonPress-1> { .n.canvasPane.container.canvas scan mark %x %y }
 	tk.Bind(cv, "<B1-Motion>", tk.Command(func(e *tk.Event) {
 		fmt.Println("b1 motion")
-
 	}))
 	tk.Bind(cv, "<ButtonPress-1>", tk.Command(func() {
 		fmt.Println("press")

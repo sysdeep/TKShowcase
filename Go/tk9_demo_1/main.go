@@ -11,6 +11,16 @@ func main() {
 
 	tk.App.WmTitle("tk9 demo 1")
 
+	// theme
+	// tk.ActivateTheme("clam")
+
+	// mainFrame := tk.TFrame()
+	// tk.Pack(
+	// 	mainFrame,
+	// 	tk.Fill("both"),
+	// 	tk.Expand(true),
+	// )
+
 	// menu
 	menubar := makeMenu()
 	tk.App.Configure(tk.Mnu(menubar), tk.Width("8c"), tk.Height("6c"))
@@ -22,7 +32,6 @@ func main() {
 	// tabs
 	nbk := tk.TNotebook()
 
-	// TODO: images
 	nbk.Add(
 		mainWidgetsFrame(),
 		tk.Txt("Widgets"),
@@ -49,7 +58,7 @@ func main() {
 	)
 
 	// set default page
-	nbk.Select(3)
+	nbk.Select(0)
 
 	tk.Pack(
 		nbk,

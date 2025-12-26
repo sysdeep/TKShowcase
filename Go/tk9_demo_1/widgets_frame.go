@@ -11,7 +11,7 @@ func mainWidgetsFrame() *tk.TFrameWidget {
 
 	// text entries -----------------------------------------------------------
 
-	textEntryFrame := frame.Labelframe(tk.Txt("Text Entry"))
+	textEntryFrame := frame.TLabelframe(tk.Txt("Text Entry"))
 
 	tk.Pack(
 		textEntryFrame,
@@ -84,7 +84,7 @@ func mainWidgetsFrame() *tk.TFrameWidget {
 
 func makeButtonsBox(parent *tk.Window) {
 
-	frame := parent.Labelframe(tk.Txt("Buttons"))
+	frame := parent.TLabelframe(tk.Txt("Buttons"))
 
 	tk.Pack(
 		frame,
@@ -103,7 +103,6 @@ func makeButtonsBox(parent *tk.Window) {
 		tk.Pady(5),
 	)
 
-	// TODO: image
 	// image button
 	tk.Pack(
 		frame.TButton(
@@ -132,7 +131,7 @@ func makeButtonsBox(parent *tk.Window) {
 
 func makeCheckButtonsBox(parent *tk.Window) {
 
-	frame := parent.Labelframe(tk.Txt("Check buttons"))
+	frame := parent.TLabelframe(tk.Txt("Check buttons"))
 
 	tk.Pack(
 		frame,
@@ -168,7 +167,7 @@ func makeCheckButtonsBox(parent *tk.Window) {
 
 func makeRadioButtonsBox(parent *tk.Window) {
 
-	frame := parent.Labelframe(tk.Txt("Radio buttons"))
+	frame := parent.TLabelframe(tk.Txt("Radio buttons"))
 
 	tk.Pack(
 		frame,
@@ -203,7 +202,7 @@ func makeRadioButtonsBox(parent *tk.Window) {
 }
 
 func makeRangesBox(parent *tk.Window) {
-	frame := parent.Labelframe(tk.Txt("Progress & Scale"))
+	frame := parent.TLabelframe(tk.Txt("Progress & Scale"))
 
 	tk.Pack(
 		frame,
@@ -216,9 +215,9 @@ func makeRangesBox(parent *tk.Window) {
 	)
 
 	// progress bar
-
+	pb := frame.TProgressbar(tk.Value(4), tk.Maximum(10))
 	tk.Pack(
-		frame.TProgressbar(tk.Value(4), tk.Maximum(10)),
+		pb,
 		tk.Side("top"),
 		tk.Fill("x"),
 		tk.Anchor("center"),
@@ -226,12 +225,15 @@ func makeRangesBox(parent *tk.Window) {
 		tk.Pady(5),
 	)
 
+	// scale
 	tk.Pack(
 		frame.TScale(
 			tk.From(10),
 			tk.To(0),
 			tk.Value(4),
-			// TODO: Command
+			tk.Command(func(e *tk.Event) {
+				pb.Configure(tk.Value(e.W.Value()))
+			}),
 		),
 		tk.Side("top"),
 		tk.Fill("x"),

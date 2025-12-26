@@ -22,7 +22,7 @@ func makaeDialogsFrame() *tk.TFrameWidget {
 }
 
 func makeModalsFrame(parent *tk.Window) {
-	mb := parent.Labelframe(tk.Txt("Modal"))
+	mb := parent.TLabelframe(tk.Txt("Modal"))
 	tk.Pack(
 		mb,
 		tk.Side("top"),
@@ -36,9 +36,9 @@ func makeModalsFrame(parent *tk.Window) {
 	tk.GridColumnConfigure(mb, 1, tk.Weight(1))
 
 	// color
-	var colorEntry = mb.Entry()
+	var colorEntry = mb.TEntry()
 	tk.Grid(
-		mb.Button(tk.Txt("Color"), tk.Image(tk.NewPhoto(tk.File("./media/color_swatch.png"))), tk.Compound("left"), tk.Command(func() {
+		mb.TButton(tk.Txt("Color"), tk.Image(tk.NewPhoto(tk.File("./media/color_swatch.png"))), tk.Compound("left"), tk.Command(func() {
 			color := tk.ChooseColor(tk.Initialcolor("beige"), tk.Title("Choose a color"))
 			colorEntry.Configure(tk.Textvariable(color))
 		})),
@@ -57,9 +57,9 @@ func makeModalsFrame(parent *tk.Window) {
 	)
 
 	// directory
-	var dirEntry = mb.Entry()
+	var dirEntry = mb.TEntry()
 	tk.Grid(
-		mb.Button(tk.Txt("Directory"), tk.Image(tk.NewPhoto(tk.File("./media/chart_organisation.png"))), tk.Compound("left"), tk.Command(func() {
+		mb.TButton(tk.Txt("Directory"), tk.Image(tk.NewPhoto(tk.File("./media/chart_organisation.png"))), tk.Compound("left"), tk.Command(func() {
 			color := tk.ChooseDirectory(tk.Initialdir("~"), tk.Title("Choose a directory"))
 			dirEntry.Configure(tk.Textvariable(color))
 		})),
@@ -78,9 +78,9 @@ func makeModalsFrame(parent *tk.Window) {
 	)
 
 	// open_file
-	var openDirEntry = mb.Entry()
+	var openDirEntry = mb.TEntry()
 	tk.Grid(
-		mb.Button(tk.Txt("Open File"), tk.Image(tk.NewPhoto(tk.File("./media/folder_page.png"))), tk.Compound("left"), tk.Command(func() {
+		mb.TButton(tk.Txt("Open File"), tk.Image(tk.NewPhoto(tk.File("./media/folder_page.png"))), tk.Compound("left"), tk.Command(func() {
 			color := tk.GetOpenFile(tk.Initialdir("~"), tk.Multiple(true), tk.Title("Choose a file to opening"))
 			openDirEntry.Configure(tk.Textvariable(strings.Join(color, " ")))
 		})),
@@ -99,9 +99,9 @@ func makeModalsFrame(parent *tk.Window) {
 	)
 
 	// save_file
-	var saveFileEntry = mb.Entry()
+	var saveFileEntry = mb.TEntry()
 	tk.Grid(
-		mb.Button(tk.Txt("Save File"), tk.Image(tk.NewPhoto(tk.File("./media/disk.png"))), tk.Compound("left"), tk.Command(func() {
+		mb.TButton(tk.Txt("Save File"), tk.Image(tk.NewPhoto(tk.File("./media/disk.png"))), tk.Compound("left"), tk.Command(func() {
 			color := tk.GetSaveFile(tk.Initialdir("~"), tk.Title("Choose a file to saving"))
 			saveFileEntry.Configure(tk.Textvariable(color))
 		})),
@@ -120,9 +120,9 @@ func makeModalsFrame(parent *tk.Window) {
 	)
 
 	// message
-	var messageEntry = mb.Entry()
+	var messageEntry = mb.TEntry()
 	tk.Grid(
-		mb.Button(tk.Txt("Message"), tk.Image(tk.NewPhoto(tk.File("./media/comment.png"))), tk.Compound("left"), tk.Command(func() {
+		mb.TButton(tk.Txt("Message"), tk.Image(tk.NewPhoto(tk.File("./media/comment.png"))), tk.Compound("left"), tk.Command(func() {
 			color := tk.MessageBox(
 				tk.Detail("Nunc at aliquam arcu. Sed eget tellus ligula.\nSed egestas est et tempus cursus."),
 				tk.Msg("Lorem ipsum dolor sit amet."),
@@ -147,7 +147,7 @@ func makeModalsFrame(parent *tk.Window) {
 }
 
 func makeNonModalsFrame(parent *tk.Window) {
-	mb := parent.Labelframe(tk.Txt("Non Modal"))
+	mb := parent.TLabelframe(tk.Txt("Non Modal"))
 	tk.Pack(
 		mb,
 		tk.Side("top"),
@@ -162,9 +162,9 @@ func makeNonModalsFrame(parent *tk.Window) {
 	tk.GridColumnConfigure(mb, 1, tk.Weight(1))
 
 	// color
-	var fontEntry = mb.Entry()
+	var fontEntry = mb.TEntry()
 	tk.Grid(
-		mb.Button(tk.Txt("Font"), tk.Image(tk.NewPhoto(tk.File("./media/style.png"))), tk.Compound("left"), tk.Command(func() {
+		mb.TButton(tk.Txt("Font"), tk.Image(tk.NewPhoto(tk.File("./media/style.png"))), tk.Compound("left"), tk.Command(func() {
 			tk.Fontchooser(tk.Command(func() {
 				f := tk.FontchooserFont()
 				fontEntry.Configure(tk.Textvariable(strings.Join(f, " ")))

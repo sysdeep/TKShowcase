@@ -11,6 +11,9 @@ type Window struct {
 func NewWindow() *Window {
 	mw := &Window{tk.RootWindow()}
 
+	menu := makeMenu(mw)
+	mw.SetMenu(menu)
+
 	tabs := tk.NewNotebook(mw)
 
 	tabWidgets := newWidgets(tabs)
